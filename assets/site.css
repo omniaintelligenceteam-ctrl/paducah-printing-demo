@@ -26,3 +26,134 @@ html:not(.js) [data-sc-in],html:not(.js) [data-sc-stagger]>*{opacity:1;transform
 
 .service-figure{margin:34px 0 0}.service-figure img{width:100%;height:auto}.service-figure figcaption{font-size:11px;line-height:1.7;color:#59614f;margin-top:12px;max-width:46ch}
 @media(max-width:850px){.service-figure{margin-top:26px}}
+
+/* ── Hero v2: a scene with distance in it ─────────────────────────────────
+   The old hero was layered but its parallax rates were 0.045/-0.055/-0.1.
+   The engine writes rate*(p-0.5)*100 px, so those planes moved 4-10px across
+   the whole act — authored depth, tuned to invisibility. Rates below sit in
+   devices.md's usable band and differ by 20-30% between neighbours.
+   Planes carry max-width:none and a pixel width: a global img{max-width:100%}
+   otherwise shrinks an absolutely positioned plane to the viewport on phones.
+   Planes transition opacity only; a transition on transform would ease every
+   per-frame scroll write and read as the scene lagging the thumb. */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero-scene{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-plate{position:absolute;top:-6%;left:0;width:100%;max-width:none;height:112%;object-fit:cover;object-position:50% 42%;opacity:.5;will-change:transform}
+/* The year he likes, ghosted into the paper rather than stated twice. */
+.hero-year{position:absolute;right:3.5vw;bottom:7%;font-size:clamp(150px,20vw,310px);font-weight:850;letter-spacing:-.07em;line-height:.8;color:#20241f;opacity:.055;user-select:none;will-change:transform}
+.hero-disc{position:absolute;width:46vw;max-width:680px;aspect-ratio:1;border-radius:50%;top:4%;right:4%;background:radial-gradient(circle at 38% 34%,#eceee0,#e2e5d4);opacity:.85;will-change:transform}
+.hero-grid{position:relative;z-index:3}
+.hero-copy{position:relative;z-index:9}
+.hero-art{position:relative;height:550px;z-index:4}
+.hero-image{position:absolute;width:122%;max-width:none;left:-9%;top:14%;filter:drop-shadow(0 34px 26px #35392233);transform-origin:50% 50%;will-change:transform}
+.paper-label{z-index:5}
+/* Nearest plane. Shaped and placed so it crosses the lower corner and never
+   reaches the buttons: a straight foreground edge eats the call to action
+   within a few hundred pixels of scroll. */
+.hero-sheet{position:absolute;z-index:6;width:44vw;max-width:720px;right:-9vw;left:auto;bottom:-21%;max-height:none;transform-origin:50% 100%;filter:blur(1.4px) drop-shadow(0 -18px 30px #2d31201f);opacity:.96;pointer-events:none;will-change:transform}
+/* Planes travel past the section floor and clip there; this hides the line. */
+.hero-floor{position:absolute;left:0;right:0;bottom:0;height:200px;z-index:7;pointer-events:none;background:linear-gradient(to bottom,#f5f3ec00,#f5f3ec 82%)}
+.hero-note{position:absolute;right:var(--gutter);bottom:84px;z-index:8;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6e7663}
+.hero-bottom{position:relative;z-index:8}
+.hero [data-sc-parallax]{transition:opacity .3s ease-out}
+
+@media(max-width:850px){
+  /* Art-directed, not shrunk: type sits above the subject, the sheet comes in
+     from the opposite corner so it never crowds the buttons, and the plate is
+     cropped tighter so its open centre still lands behind the headline. */
+  .hero-plate{height:106%;top:-3%;object-position:56% 46%;opacity:.42}
+  .hero-year{right:auto;left:var(--gutter);bottom:auto;top:2%;font-size:34vw;opacity:.05}
+  .hero-disc{width:78vw;top:38%;right:-12%}
+  .hero-sheet{width:84vw;left:auto;right:-26vw;bottom:-13%;filter:blur(1px) drop-shadow(0 -14px 22px #2d312018)}
+  .hero-note{bottom:76px;font-size:9px}
+}
+@media(max-width:560px){
+  .hero-year{font-size:40vw;top:1%}
+  .hero-disc{width:92vw;top:41%;right:-20%}
+  .hero-sheet{width:92vw;right:-34vw;bottom:-10%}
+  .hero-note{right:var(--gutter);bottom:70px}
+}
+/* Motion off: keep the depth, drop the travel. The composition is the payoff,
+   not the movement, so nothing essential is hidden here. */
+@media(prefers-reduced-motion:reduce){
+  .hero-plate,.hero-year,.hero-disc,.hero-image,.hero-sheet,.paper-label{transform:none!important}
+}
+
+/* The plate is a real photograph, so parts of it are dark green and parts are
+   sunlit paper. Measured on the composited page, the headline fell to 1.14:1
+   against the dark shapes. This is the scrim taste.md allows: it covers only
+   the reading column and is gone before the subject, so the scene survives on
+   the right where the eye actually goes. Not a full-frame overlay. */
+.hero-veil{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(97deg,#f5f3ec 0%,#f5f3ec 30%,rgba(245,243,236,.95) 42%,rgba(245,243,236,.6) 54%,rgba(245,243,236,0) 68%)}
+.hero-plate{opacity:.42}
+/* The caption rode on open scene and measured 1.99:1. On the floor gradient it
+   has a known ground under it. */
+.hero-note{bottom:92px;color:#5d6553}
+@media(max-width:850px){
+  /* Portrait: the copy is a band across the top, so the scrim is vertical. */
+  .hero-veil{background:linear-gradient(177deg,#f5f3ec 0%,#f5f3ec 34%,rgba(245,243,236,.92) 44%,rgba(245,243,236,.45) 56%,rgba(245,243,236,0) 70%)}
+  .hero-plate{opacity:.4}
+  .hero-note{bottom:84px}
+}
+
+/* The caption measured 2.4:1 riding on open scene. A taller floor that reaches
+   solid paper sooner gives it a known ground, and a darker ink finishes it. */
+.hero-floor{height:260px;background:linear-gradient(to bottom,#f5f3ec00,#f5f3ec 70%)}
+.hero-note{bottom:96px;color:#4a5142}
+@media(max-width:850px){.hero-floor{height:220px}.hero-note{bottom:88px}}
+
+/* The foreground sheet rises from the lower right, which is exactly where this
+   label used to sit: the sheet is the nearer plane, so it cut the label in half
+   on every frame. Two fixes, because position alone is not enough at every
+   width — the label moves to the top of the art, above the sheet's reach, and
+   it outranks the sheet so a wide viewport can never cover it again. */
+.paper-label{z-index:8;top:1%;bottom:auto;right:1%;transform:rotate(6deg)}
+@media(max-width:850px){.paper-label{top:auto;bottom:6%;right:4%}}
+@media(max-width:560px){.paper-label{bottom:auto;top:-4%;right:0}}
+
+/* The floor gradient sat ABOVE the foreground sheet and painted it out
+   completely: the nearest plane, the only one travelling the other way, was
+   invisible at every scroll position while still costing its download. The
+   floor exists to hide the BACKGROUND planes clipping at the section edge, so
+   it belongs under the foreground and over everything else. The sheet now
+   leaves frame at the hero's own bottom edge, which is an object exiting the
+   shot, not a seam. Copy, caption and the bottom rule all outrank it so the
+   foreground can never eat a word or the call to action. */
+.hero-sheet{z-index:8;bottom:-14%}
+.hero-note,.hero-bottom{z-index:9}
+@media(max-width:850px){.hero-sheet{bottom:-9%}}
+@media(max-width:560px){.hero-sheet{bottom:-7%}}
+
+/* Visible at last, the sheet read as a hard-edged slab crossing the bottom
+   rule: a 44vw panel at blur 1.4px and 96% opacity is a second subject, not a
+   foreground. A plane this close to the lens is barely in focus and barely
+   there — that is what sells the depth, and it is also what keeps it from
+   competing with the printed work, which is the thing the eye should land on.
+   Smaller, softer, and tucked into the corner it leaves frame through. */
+.hero-sheet{width:30vw;max-width:470px;right:-6vw;bottom:-18%;
+  filter:blur(7px) drop-shadow(0 -16px 26px #2d312016);opacity:.6}
+@media(max-width:850px){
+  .hero-sheet{width:62vw;right:-18vw;bottom:-11%;filter:blur(5px) drop-shadow(0 -12px 20px #2d312014);opacity:.55}
+}
+@media(max-width:560px){.hero-sheet{width:72vw;right:-24vw;bottom:-9%}}
+
+/* On a phone the copy and the subject already fill the frame, and there is no
+   corner left that is not either type or artwork — moved to the top of the art
+   the label landed on the secondary link, moved to the bottom it landed on the
+   subject. Art direction means dropping it here, not shrinking it until it is
+   unreadable. It is decorative and aria-hidden, so nothing is lost. */
+@media(max-width:560px){.paper-label{display:none}}
+
+/* The v2 hero block restated .hero-art{height:550px} after the responsive
+   overrides, so it won at every width: on a phone that is a 550px box holding
+   a 280px image, and the 190px of nothing under the subject was the result.
+   The art box tracks the artwork again. */
+@media(max-width:850px){.hero-art{height:400px}}
+@media(max-width:560px){.hero-art{height:350px}}
+
+/* Lifting the foreground above the floor gradient took the caption's known
+   ground away with it: measured on the composited page it fell from 5.1 to
+   3.3 against the sheet. It is 10px uppercase, so it needs 4.5:1, and the
+   honest fix for a small label is ink rather than another scrim. */
+.hero-note{color:#20241f}
