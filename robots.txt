@@ -1,0 +1,4 @@
+# Concept redesign hosted for review. Kept out of search so it never competes
+# with the company's own site at paducahprintingcorp.com.
+User-agent: *
+Disallow: /

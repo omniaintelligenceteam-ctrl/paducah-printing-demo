@@ -1,0 +1,14 @@
+/* One variable face, Latin subset, width axis pinned to 100: 38 KB where the
+   six static TrueType faces were 670 KB. It also renders the 300/550/650/850
+   weights site.css asks for, which six static faces could only snap to.
+   Archivo, SIL Open Font License 1.1 — see Archivo-LICENSE.txt.
+   Regenerate with scripts/fonts.sh. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(archivo.woff2) format('woff2-variations'),
+       url(archivo.woff2) format('woff2');
+}

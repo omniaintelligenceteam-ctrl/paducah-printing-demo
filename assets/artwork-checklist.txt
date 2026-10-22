@@ -1,0 +1,23 @@
+PADUCAH PRINTING — ARTWORK CHECKLIST
+
+Before exporting
+[ ] Confirm finished dimensions, quantity, material, finishing, and deadline with the team.
+[ ] Ask which bleed, safe area, crop marks, and PDF preset the particular job needs.
+[ ] Proofread names, dates, prices, contact details, and page order.
+[ ] Use high-resolution source images. Around 300 dpi at final size is a common target for close-viewed print; ask about wide-format work.
+[ ] Discuss CMYK/grayscale, spot colors, and color-critical artwork with prepress.
+[ ] Check font embedding and any linked assets in your exported PDF.
+
+Before sending
+[ ] Export the agreed press-ready PDF and inspect every page.
+[ ] Check page size, bleed, margins, and image quality.
+[ ] Keep foil, embossing, and cutting instructions clearly identified; confirm setup with the team.
+[ ] Include your job description, quantity, requested deadline, and P.O. reference if applicable.
+[ ] Follow current size and file-type requirements at the upload portal.
+
+Upload: https://paducahprintingcorp.com/ftp
+Questions: 270.443.5383
+233 North 8th Street, Paducah, KY 42001
+Monday–Friday, 8:00 a.m.–5:00 p.m.
+
+General guidance, not a replacement for job-specific prepress instructions.
