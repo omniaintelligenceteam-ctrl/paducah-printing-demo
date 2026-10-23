@@ -1,4 +1,54 @@
 # Concept redesign hosted for review. Kept out of search so it never competes
 # with the company's own site at paducahprintingcorp.com.
+#
+# Search crawling stays off. The fetchers that only build a link preview are
+# let in by name, because a blocked fetch is why a shared link arrives as plain
+# text with no card. Every page still carries
+# <meta name="robots" content="noindex, nofollow">, so an agent that does fetch
+# here still never puts the page in a search result.
+
+# Messages and Mail previews on iPhone and Mac.
+User-agent: Applebot
+Disallow:
+
+# Facebook, Messenger and Instagram.
+User-agent: facebookexternalhit
+Disallow:
+
+User-agent: Facebot
+Disallow:
+
+# WhatsApp.
+User-agent: WhatsApp
+Disallow:
+
+# X.
+User-agent: Twitterbot
+Disallow:
+
+User-agent: LinkedInBot
+Disallow:
+
+User-agent: Slackbot-LinkExpanding
+Disallow:
+
+User-agent: Slackbot
+Disallow:
+
+User-agent: Discordbot
+Disallow:
+
+User-agent: TelegramBot
+Disallow:
+
+User-agent: SkypeUriPreview
+Disallow:
+
+User-agent: redditbot
+Disallow:
+
+# Everyone else, search engines included: nothing. The share card stays
+# reachable so a preview built by an unnamed fetcher still has its image.
 User-agent: *
 Disallow: /
+Allow: /assets/og-card.jpg
